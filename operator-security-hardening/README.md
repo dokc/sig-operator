@@ -2,6 +2,13 @@
 
 This directory is the home of materials for operator security and hardening. 
 
+## Draft for Review
+
+Looking for the review draft guide to add comments? It's in Google Docs:
+[Draft Data on Kubernetes Database Operator Security and Hardening Guide](https://docs.google.com/document/d/1tzBNFEFma2zVwXMcu1TywlbjbcVIwT0K8sU6foF0PCE/edit?usp=sharing)
+
+Anyone with the link can offer comments. Thanks!!
+
 ## Project goals and definition
 
 Kubernetes operators are essential to manage cloud native databases. We
