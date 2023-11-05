@@ -1,8 +1,7 @@
 # DoK Operator Security & Hardening Guide
 
 This directory is the home of materials for operator security and
-hardening including the [DoKC Operator Security and Hardening Guide](guide/DoKc-Operator-Security-and-Hardening.md) 
-is in this repo.
+hardening including the [DoKC Operator Security and Hardening Guide](guide/DoKc-Operator-Security-and-Hardening.md).
 
 ## Project goals and definition
 
@@ -45,8 +44,9 @@ Operator and many others.
 ## How to contribute
 
 Please join the #sig-operator channel on the DoKC Slack Workspace. You
-can also file issues for problems. We also accept pull requests. Please
-DM Robert Hodges in the DoKC Slack Workspace. 
+can also file issues for problems. We accept pull requests. Please
+DM Robert Hodges in the DoKC Slack Workspace if you have questions or would 
+like to help. 
 
 ## Contacts
 
