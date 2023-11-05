@@ -37,11 +37,11 @@ simplify Kubernetes security as a whole.
 This document is an initial release to provide quick guidance to users of
 operators and stimulate further discussion with the Kubernetes community
 as a whole. Eventually we hope the guide will expand to provide additional
-guidance that integrates with the following:
+guidance that:
 
-* The overall Kubernetes security model
-* Software supply chain security model(s)
-* Global authentication and authorization mechanisms aka single sign-on
+* Avoids rework by building on the Kubernetes security model.
+* Protects operator code through best practices in software supply chain security.
+* Adds guidance on global authentication and authorization aka single sign-on
 
 ## Principles
 
@@ -52,7 +52,7 @@ Kubernetes, and cloud native computing.
 ### Security by default
 
 The best security starts with default settings that provide out-of-box
-security for data. Examples include providing passwords for default
+protection for data. Examples include providing passwords for default
 logins and restricting network access to such accounts. Operators should
 come with settings that protect data automatically but can be relaxed
 in easy-to-understand, visible ways when operating in development or
@@ -67,7 +67,7 @@ implement these practices.
 
 ### Integration with Kubernetes security model
 
-Kubernetes has a well-developed security model as well as a rich
+Kubernetes has a [well-developed security model](https://kubernetes.io/docs/concepts/security/overview/) as well as a rich
 set of resources to implement that model. Database operator security
 should as far as possible build on existing resources like Secrets
 and adopt new ones (like those for implementing zero-trust security)
@@ -79,7 +79,7 @@ cloud security models.
 
 ### Adherence to principles of cloud native applications
 
-Cloud native computing provides a set of guidelines for building
+[Cloud native computing](https://cloud.google.com/learn/what-is-cloud-native) provides a set of guidelines for building
 scalable systems using containers, microservices, DevOps, and continuous
 integration/continuous deployment (CI/CD). Database operators must
 integrate well with the practices used to implement and deploy cloud
@@ -112,7 +112,7 @@ threat model. The following threat model factors database management
 on Kubernetes into three overlapping problems, as illustrated in the
 following diagram.
 
-[Kubernetes Database Operator Threat Model](database-operator-threat-model.png))
+![Kubernetes Database Operator Threat Model](database-operator-threat-model.png)
 
 ### Protect the database
 
@@ -138,7 +138,9 @@ or Google GKE. However, it also means that database operators should
 not use mechanisms that can be used to attack Kubernetes itself, such
 as requiring administrator access in database operator service accounts
 or allowing databases to become attack vectors to Kubernetes as well as
-other applications running on Kubernetes.  ### Protect external data
+other applications running on Kubernetes.  
+
+### Protect external data
 
 Modern databases integrate with and export data to an increasing number
 of external data stores. These may be in other namespaces of Kubernetes
@@ -177,9 +179,9 @@ The sections that follow describe best practices for data protection
 in summary form. Each section offers a context for the practices, which
 are presented in tabular form.
 
-(Note: This is in checklist format for now–we can investigate ways
+**Note:** This is in checklist format for now–we can investigate ways
 to dig more deeply into example code or add more context without adding
-bloat to this guide.)
+bloat to this guide.
 
 ## Database Management
 
@@ -251,6 +253,7 @@ suggestions that should be applied where appropriate. The best guideline
 is to use common sense and try not to forget anything obvious.
 
 | Key | Name | Description |
+| ----- | ----- | ----- |
 | ED-1 | Encrypted Backups | Encrypt backups using keys stored in a secure key management facility.  |
 | ED-2 | Log Message Filtering | Prevent export of log messages that contain sensitive information such as credentials or user data. This problem can also be solved by enabling local storage of data.  |
 | ED-3 | Table data | Encrypt exported table data using keys stored in a security key management facility.  |
@@ -263,6 +266,7 @@ mining. Monitoring and alerts help identify exploits quickly. Auditing
 preserves the history of operations that affect security.
 
 | Key | Name | Description |
+| ----- | ----- | ----- |
 | MAA-1 | Database Monitoring | Provide comprehensive Day 2 database monitoring using standard tools like Prometheus for metric storage and Grafana for operational dashboards.  |
 | MAA-2 | Default Security Alerts | Provide alerts on security-related events like login failures.  |
 | MAA-3 | Default Audit Logging | Turn on available audit logs by default. Set other logs to the minimum level needed to diagnose security issues.  |
@@ -273,6 +277,7 @@ Database operators need to build on Kubernetes and avoid creating new
 loopholes.
 
 | Key | Name | Description |
+| ----- | ----- | ----- |
 | KSI-1 | No Cluster Admin Access | Default to running operator tasks without access to Cluster Admin role. This includes installation which should be possible to do in a single namespace. Cluster role binding–if necessary–should be explicitly enabled by the user.    |
 | KSI-2 | Namespace Scoping | Restrict operator scope to a single name space by default. Add mechanisms to explicitly expand scope to a list of namespaces or Kubernetes cluster as a whole.  |
 | KSI-3 | Service Accounts | Restrict service account(s) for operators to a single namespace and minimize granted privileges.  |
@@ -289,7 +294,9 @@ Kubernetes applications in a controlled, repeatable way. This practice is
 also the backbone of security management. Specific features are needed
 to allow GitOps using tools like ArgoCD and Terraform to integrate
 database operators.
+
 | Key | Name | Description |
+| ----- | ----- | ----- |
 | CN-1 | Helm Chart Install | Provide an accessible helm chart for the operator in an accessible public helm repo with documented properties and without explicit namespace labels.  |
 | CN-2 | Manifest Install | Provide an accessible manifest-based install with properties defined in forms that can be changed using Kustomize and without namespace labels.  |
 | CN-3 | Credential Encryption | Use general mechanisms for credentials such as Secrets that can be encrypted on check in to Git and decrypted for use inside Kubernetes |
@@ -301,11 +308,12 @@ containers to set up and manage databases. There are a number of important
 features related to software supply chain management for operators and
 their dependent software.
 
-Note: Supply chain security is a deep subject. It’s worth considering
-whether we should include discussion of specifications like SLSA
-(Supply-chain Levels for Software Artifacts) here.
+**Note:** Supply chain security is a deep subject. It’s worth considering
+whether we should include discussion of specifications like 
+[Supply-chain Levels for Software Artifacts](https://slsa.dev/spec/v1.0/) here.
 
 | Key | Name | Description
+| ----- | ----- | ----- |
 | SSC-1 | Operator Security Test | Operates should include a regression test with cases for each security feature recommended by this guide. 
 | SSC-2 | Version Management | Operator releases should adopt a versioning scheme and release management practices to ensure that users only pull fully tested, production-ready software versions. 
 | SSC-3 | Operator CVE Scanning | Operators and any sidecar container images that they depend on should be scanned using tools like Trivy and/or Docker Scout before release. All HIGH CVEs should be eliminated prior to release. 
@@ -319,6 +327,7 @@ You cannot secure what you do not understand. Readable, up-to-date
 documentation is key to enabling secure use of database operators.
 
 | Key | Name | Description |
+| ----- | ----- | ----- |
 | D-1 | Operator Doc Set | The database operator should have up-to-date documentation that includes an introductory tutorial, examples of use, and a reference guide that describes all settings.  |
 | D-2 | Hardening Guide | The operator should have a comprehensive hardening guide that covers all configurations related to security including assumptions for secure use, an explanation of security-related features with examples, and a list of any features in this guide that are not covered.  |
 | D-3 | Release Notes | New operator releases should include release notes that document any changes that affect security including notes on new CVEs.  |
