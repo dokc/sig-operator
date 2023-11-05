@@ -1,13 +1,8 @@
 # DoK Operator Security & Hardening Guide
 
-This directory is the home of materials for operator security and hardening. 
-
-## Draft for Review
-
-Looking for the review draft guide to add comments? It's in Google Docs:
-[Draft Data on Kubernetes Database Operator Security and Hardening Guide](https://docs.google.com/document/d/1tzBNFEFma2zVwXMcu1TywlbjbcVIwT0K8sU6foF0PCE/edit?usp=sharing)
-
-Anyone with the link can offer comments. Thanks!!
+This directory is the home of materials for operator security and
+hardening including the [DoKC Operator Security and Hardening Guide](guide/DoKc-Operator-Security-and-Hardening.md) 
+is in this repo.
 
 ## Project goals and definition
 
@@ -47,10 +42,12 @@ Operator and many others.
 * Operator producers - Developers creating or maintaining operators for data services
 * Operator consumers - Developers seeking secure operators for data services
 
-## Community
+## How to contribute
 
-Please join the #sig-operator channel on the DoK Slack Workspace.
+Please join the #sig-operator channel on the DoKC Slack Workspace. You
+can also file issues for problems. We also accept pull requests. Please
+DM Robert Hodges in the DoKC Slack Workspace. 
 
 ## Contacts
 
-Robert Hodges, Altinity
+Robert Hodges, Altinity 
